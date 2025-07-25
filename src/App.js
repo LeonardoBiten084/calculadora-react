@@ -49,6 +49,41 @@ const App = () => {
 
   }
 
+  const handleMultiplyNumbers = () => {
+
+    if(firstNumber === '0'){
+        setFirstNumber(String(currentNumber));
+        setCurrentNumber('0')
+        setOperation('*')
+    } else {
+        const sum = Number(firstNumber) * Number(currentNumber);
+        setCurrentNumber(String(sum))
+        setOperation('')
+    }
+  }
+
+  const handleDivideNumbers = () => {
+    if(firstNumber === '0'){
+        setFirstNumber(String(currentNumber));
+        setCurrentNumber('0')
+        setOperation('/')
+    } else {
+        const sum = Number(firstNumber) / Number(currentNumber);
+        setCurrentNumber(String(sum))
+        setOperation('')
+    }
+  }
+
+  const handleSquaredNumbers = () => {
+    if(currentNumber !== '0'){
+        const number = Number(currentNumber);
+        const squared = number * number;
+        setCurrentNumber(String(squared));
+        setFirstNumber('0');
+        setOperation('');
+    };
+  }
+
   const handleEquals = () => {
 
     if(firstNumber !== '0' && operation !== '' && currentNumber !== '0'){
@@ -58,6 +93,15 @@ const App = () => {
             break;
           case '-':
             handleMinusNumbers();
+            break;
+          case '*':
+            handleMultiplyNumbers();
+            break;
+          case '/':
+            handleDivideNumbers();
+            break;
+          case 'x²':
+            handleSquaredNumbers();
             break;
           default: 
             break;
@@ -71,10 +115,10 @@ const App = () => {
       <Content>
         <Input value={currentNumber}/>
         <Row>
-          <Button label="x"/>
-          <Button label="/"/>
           <Button label="c" onClick={handleOnClear}/>
-          <Button label="."/>
+          <Button label="x²"onClick={handleSquaredNumbers}/>
+          <Button label="/"onClick={handleDivideNumbers}/> 
+          <Button label="*" onClick={handleMultiplyNumbers}/>
         </Row>
         <Row>
           <Button label="7" onClick={() => handleAddNumber('7')}/>
@@ -93,6 +137,9 @@ const App = () => {
           <Button label="2" onClick={() => handleAddNumber('2')}/>
           <Button label="3" onClick={() => handleAddNumber('3')}/>
           <Button label="=" onClick={handleEquals}/>
+        </Row>
+        <Row>
+          <Button label="0" onClick={() => handleAddNumber('0')}/>
         </Row>
       </Content>
     </Container>
